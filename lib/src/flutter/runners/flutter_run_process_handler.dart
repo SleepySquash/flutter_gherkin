@@ -140,21 +140,26 @@ class FlutterRunProcessHandler extends ProcessHandler {
       runInShell: true,
     );
 
-    _processStdoutStream =
-        _runningProcess!.stdout.transform(utf8.decoder).asBroadcastStream();
+    _processStdoutStream = _runningProcess!.stdout
+        .transform(utf8.decoder)
+        .asBroadcastStream();
 
-    _openSubscriptions.add(_runningProcess!.stderr
-        .map((events) => String.fromCharCodes(events).trim())
-        .where((event) => event.isNotEmpty)
-        .listen((event) {
-      if (event.contains(_errorMessageRegex)) {
-        stderr.writeln('${FAIL_COLOR}Flutter build error: $event$RESET_COLOR');
-      } else {
-        // This is most likely a deprecated api usage warnings (from Gradle) and should not
-        // cause the test run to fail.
-        stdout.writeln('$WARN_COLOR$event$RESET_COLOR');
-      }
-    }));
+    _openSubscriptions.add(
+      _runningProcess!.stderr
+          .map((events) => String.fromCharCodes(events).trim())
+          .where((event) => event.isNotEmpty)
+          .listen((event) {
+            if (event.contains(_errorMessageRegex)) {
+              stderr.writeln(
+                '${FAIL_COLOR}Flutter build error: $event$RESET_COLOR',
+              );
+            } else {
+              // This is most likely a deprecated api usage warnings (from Gradle) and should not
+              // cause the test run to fail.
+              stdout.writeln('$WARN_COLOR$event$RESET_COLOR');
+            }
+          }),
+    );
   }
 
   @override
@@ -210,39 +215,41 @@ class FlutterRunProcessHandler extends ProcessHandler {
     _ensureRunningProcess();
     final completer = Completer<String>();
     StreamSubscription? sub;
-    sub = _processStdoutStream!.timeout(
-      timeout ?? const Duration(seconds: 90),
-      onTimeout: (_) {
-        sub?.cancel();
-        if (!completer.isCompleted) {
-          completer.completeError(TimeoutException(timeoutMessage, timeout));
-        }
-      },
-    ).listen(
-      (logLine) {
-        if (_logFlutterProcessOutput) {
-          stdout.write(logLine);
-        }
-        if (matcher.hasMatch(logLine)) {
-          sub?.cancel();
-          if (!completer.isCompleted) {
-            completer.complete(matcher.firstMatch(logLine)!.group(1));
+    sub = _processStdoutStream!
+        .timeout(
+          timeout ?? const Duration(seconds: 90),
+          onTimeout: (_) {
+            sub?.cancel();
+            if (!completer.isCompleted) {
+              completer.completeError(
+                TimeoutException(timeoutMessage, timeout),
+              );
+            }
+          },
+        )
+        .listen((logLine) {
+          if (_logFlutterProcessOutput) {
+            stdout.write(logLine);
           }
-        } else if (_noConnectedDeviceRegex.hasMatch(logLine)) {
-          sub?.cancel();
-          if (!completer.isCompleted) {
-            stderr.writeln(
-                '${FAIL_COLOR}No connected devices found to run app on and tests against$RESET_COLOR');
+          if (matcher.hasMatch(logLine)) {
+            sub?.cancel();
+            if (!completer.isCompleted) {
+              completer.complete(matcher.firstMatch(logLine)!.group(1));
+            }
+          } else if (_noConnectedDeviceRegex.hasMatch(logLine)) {
+            sub?.cancel();
+            if (!completer.isCompleted) {
+              stderr.writeln(
+                '${FAIL_COLOR}No connected devices found to run app on and tests against$RESET_COLOR',
+              );
+            }
+          } else if (_moreThanOneDeviceConnectedDeviceRegex.hasMatch(logLine)) {
+            sub?.cancel();
+            if (!completer.isCompleted) {
+              stderr.writeln('$FAIL_COLOR$logLine$RESET_COLOR');
+            }
           }
-        } else if (_moreThanOneDeviceConnectedDeviceRegex.hasMatch(logLine)) {
-          sub?.cancel();
-          if (!completer.isCompleted) {
-            stderr.writeln('$FAIL_COLOR$logLine$RESET_COLOR');
-          }
-        }
-      },
-      cancelOnError: true,
-    );
+        }, cancelOnError: true);
 
     return completer.future;
   }
@@ -250,7 +257,8 @@ class FlutterRunProcessHandler extends ProcessHandler {
   void _ensureRunningProcess() {
     if (_runningProcess == null) {
       throw Exception(
-          'FlutterRunProcessHandler: flutter run process is not active');
+        'FlutterRunProcessHandler: flutter run process is not active',
+      );
     }
   }
 }

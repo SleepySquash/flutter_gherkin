@@ -39,20 +39,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
+            Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
               key: const Key('counter'),
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
           ],
         ),

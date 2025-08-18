@@ -12,8 +12,9 @@ mixin _SwipeHelper
     int swipeAmount,
   ) async {
     if (direction == SwipeDirection.left || direction == SwipeDirection.right) {
-      final offset =
-          direction == SwipeDirection.right ? swipeAmount : (swipeAmount * -1);
+      final offset = direction == SwipeDirection.right
+          ? swipeAmount
+          : (swipeAmount * -1);
 
       await world.appDriver.scroll(
         finder,
@@ -22,8 +23,9 @@ mixin _SwipeHelper
         timeout: timeout,
       );
     } else {
-      final offset =
-          direction == SwipeDirection.up ? swipeAmount : (swipeAmount * -1);
+      final offset = direction == SwipeDirection.up
+          ? swipeAmount
+          : (swipeAmount * -1);
 
       await world.appDriver.scroll(
         finder,
@@ -79,5 +81,6 @@ class SwipeOnTextStep
 
   @override
   RegExp get pattern => RegExp(
-      r'I swipe {swipe_direction} by {int} pixels on the (?:button|element|label|field|text|widget|dialog|popup) that contains the text {string}');
+    r'I swipe {swipe_direction} by {int} pixels on the (?:button|element|label|field|text|widget|dialog|popup) that contains the text {string}',
+  );
 }

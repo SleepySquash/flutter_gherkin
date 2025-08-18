@@ -6,21 +6,14 @@ import 'module.dart';
 import 'widgets/views/home_view.dart';
 
 void main() {
-  runApp(
-    TodoApp(
-      injector: Injector(),
-    ),
-  );
+  runApp(TodoApp(injector: Injector()));
 }
 
 class TodoApp extends StatelessWidget {
   final ExternalApplicationManager? externalApplicationManager;
   final Injector injector;
 
-  TodoApp({
-    required this.injector,
-    this.externalApplicationManager,
-  }) : super() {
+  TodoApp({required this.injector, this.externalApplicationManager}) : super() {
     ModuleContainer().initialise(injector);
   }
 

@@ -80,7 +80,8 @@ class FlutterAppRunnerHook extends Hook {
         ..setDeviceTargetId(config.targetDeviceId);
 
       stdout.writeln(
-          "Starting Flutter app under test '${config.targetAppPath}', this might take a few moments");
+        "Starting Flutter app under test '${config.targetAppPath}', this might take a few moments",
+      );
       await _flutterRunProcessHandler!.run();
       final observatoryUri = await _flutterRunProcessHandler!
           .waitForObservatoryDebuggerUri(config.flutterBuildTimeout);

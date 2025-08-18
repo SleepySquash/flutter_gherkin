@@ -19,14 +19,13 @@ import 'package:gherkin/gherkin.dart';
 StepDefinitionGeneric WhenTapWidget() {
   return when1<String, FlutterWorld>(
     RegExp(
-        r'I tap the {string} (?:button|element|label|icon|field|text|widget)$'),
+      r'I tap the {string} (?:button|element|label|icon|field|text|widget)$',
+    ),
     (key, context) async {
       await context.world.appDriver.waitForAppToSettle();
       final finder = context.world.appDriver.findBy(key, FindType.key);
 
-      await context.world.appDriver.scrollIntoView(
-        finder,
-      );
+      await context.world.appDriver.scrollIntoView(finder);
       await context.world.appDriver.waitForAppToSettle();
       await context.world.appDriver.tap(
         finder,
@@ -40,14 +39,15 @@ StepDefinitionGeneric WhenTapWidget() {
 StepDefinitionGeneric WhenTapWidgetWithoutScroll() {
   return when1<String, FlutterWorld>(
     RegExp(
-        r'I tap the {string} (?:button|element|label|icon|field|text|widget) without scrolling it into view$'),
+      r'I tap the {string} (?:button|element|label|icon|field|text|widget) without scrolling it into view$',
+    ),
     (key, context) async {
-      final finder =
-          context.world.appDriver.findByDescendant(key, FindType.key);
-
-      await context.world.appDriver.tap(
-        finder,
+      final finder = context.world.appDriver.findByDescendant(
+        key,
+        FindType.key,
       );
+
+      await context.world.appDriver.tap(finder);
 
       await context.world.appDriver.waitForAppToSettle();
     },

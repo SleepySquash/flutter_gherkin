@@ -10,7 +10,8 @@ import 'package:gherkin/gherkin.dart';
 StepDefinitionGeneric TapWidgetOfTypeWithinStep() {
   return when2<String, String, FlutterWorld>(
     RegExp(
-        r'I tap the (?:button|element|label|icon|field|text|widget) of type {string} within the {string}$'),
+      r'I tap the (?:button|element|label|icon|field|text|widget) of type {string} within the {string}$',
+    ),
     (widgetType, ancestorKey, context) async {
       final finder = context.world.appDriver.findByDescendant(
         context.world.appDriver.findBy(ancestorKey, FindType.key),

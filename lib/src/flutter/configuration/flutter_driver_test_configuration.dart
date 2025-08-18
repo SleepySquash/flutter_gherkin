@@ -112,7 +112,8 @@ class FlutterDriverTestConfiguration extends FlutterTestConfiguration {
 
   Future<FlutterDriver> createFlutterDriver([String? dartVmServiceUrl]) async {
     final completer = Completer<FlutterDriver>();
-    dartVmServiceUrl = (dartVmServiceUrl ?? _observatoryDebuggerUri) ??
+    dartVmServiceUrl =
+        (dartVmServiceUrl ?? _observatoryDebuggerUri) ??
         Platform.environment['VM_SERVICE_URL'];
 
     await runZonedGuarded(
@@ -180,25 +181,23 @@ class FlutterDriverTestConfiguration extends FlutterTestConfiguration {
   ) async {
     return await FlutterDriver.connect(
       dartVmServiceUrl: dartVmServiceUrl,
-    ).catchError(
-      (e, st) async {
-        if (attempt > maxAttempts) {
-          throw e;
-        } else {
-          print(
-            'Fluter driver error connecting to application at `$dartVmServiceUrl`,'
-            'retrying after delay of $flutterDriverReconnectionDelay',
-          );
-          await Future<void>.delayed(flutterDriverReconnectionDelay);
+    ).catchError((e, st) async {
+      if (attempt > maxAttempts) {
+        throw e;
+      } else {
+        print(
+          'Fluter driver error connecting to application at `$dartVmServiceUrl`,'
+          'retrying after delay of $flutterDriverReconnectionDelay',
+        );
+        await Future<void>.delayed(flutterDriverReconnectionDelay);
 
-          return _attemptDriverConnection(
-            dartVmServiceUrl,
-            attempt + 1,
-            maxAttempts,
-          );
-        }
-      },
-    );
+        return _attemptDriverConnection(
+          dartVmServiceUrl,
+          attempt + 1,
+          maxAttempts,
+        );
+      }
+    });
   }
 
   void _ensureCorrectConfiguration() {

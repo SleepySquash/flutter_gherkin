@@ -13,7 +13,8 @@ import '../parameters/existence_parameter.dart';
 StepDefinitionGeneric TextExistsWithinStep() {
   return then3<String, Existence, String, FlutterWorld>(
     RegExp(
-        r'I expect the text {string} to be {existence} within the {string}$'),
+      r'I expect the text {string} to be {existence} within the {string}$',
+    ),
     (text, exists, ancestorKey, context) async {
       final finder = context.world.appDriver.findByDescendant(
         context.world.appDriver.findBy(ancestorKey, FindType.key),
@@ -21,9 +22,7 @@ StepDefinitionGeneric TextExistsWithinStep() {
         firstMatchOnly: true,
       );
 
-      final isPresent = await context.world.appDriver.isPresent(
-        finder,
-      );
+      final isPresent = await context.world.appDriver.isPresent(finder);
 
       context.expect(isPresent, exists == Existence.present);
     },

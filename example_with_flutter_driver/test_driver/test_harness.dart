@@ -3,14 +3,15 @@ import 'package:flutter_gherkin/flutter_gherkin_with_driver.dart';
 import 'package:gherkin/gherkin.dart';
 
 Future<void> main() {
-  final config = FlutterDriverTestConfiguration.DEFAULT(
-    Iterable.empty(),
-    featurePath: 'features/**.feature',
-    targetAppPath: 'test_driver/app.dart',
-  )
-    ..restartAppBetweenScenarios = true
-    ..targetAppWorkingDirectory = '../'
-    ..targetAppPath = 'test_driver/app.dart';
+  final config =
+      FlutterDriverTestConfiguration.DEFAULT(
+          Iterable.empty(),
+          featurePath: 'features/**.feature',
+          targetAppPath: 'test_driver/app.dart',
+        )
+        ..restartAppBetweenScenarios = true
+        ..targetAppWorkingDirectory = '../'
+        ..targetAppPath = 'test_driver/app.dart';
   // ..buildFlavor = "staging" // uncomment when using build flavor and check android/ios flavor setup see android file android\app\build.gradle
   // ..targetDeviceId = "all" // uncomment to run tests on all connected devices or set specific device target id
   // ..tagExpression = '@smoke and not @ignore' // uncomment to see an example of running scenarios based on tag expressions

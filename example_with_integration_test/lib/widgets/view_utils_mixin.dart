@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class ViewUtilsMixin {
+mixin ViewUtilsMixin {
   @protected
   StreamSubscription<T> subscribeOnce<T>(
     Stream<T> stream, {

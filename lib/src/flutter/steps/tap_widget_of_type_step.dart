@@ -12,13 +12,11 @@ import 'package:gherkin/gherkin.dart';
 StepDefinitionGeneric TapWidgetOfTypeStep() {
   return given1<String, FlutterWorld>(
     RegExp(
-        r'I tap the (?:button|element|label|icon|field|text|widget) of type {string}$'),
+      r'I tap the (?:button|element|label|icon|field|text|widget) of type {string}$',
+    ),
     (input1, context) async {
       await context.world.appDriver.tap(
-        context.world.appDriver.findBy(
-          input1,
-          FindType.type,
-        ),
+        context.world.appDriver.findBy(input1, FindType.type),
       );
       await context.world.appDriver.waitForAppToSettle();
     },

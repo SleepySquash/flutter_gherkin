@@ -7,8 +7,5 @@ part 'gherkin_suite_test.g.dart';
 
 @GherkinTestSuite()
 void main() {
-  executeTestSuite(
-    gherkinTestConfiguration,
-    appInitializationFn,
-  );
+  executeTestSuite(gherkinTestConfiguration, appInitializationFn);
 }

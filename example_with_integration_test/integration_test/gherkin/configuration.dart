@@ -13,18 +13,14 @@ import 'steps/when_step_has_timeout.dart';
 import 'world/custom_world.dart';
 
 FlutterTestConfiguration gherkinTestConfiguration =
-    FlutterTestConfiguration.DEFAULT(
-  [
-    thenIExpectTheTodos,
-    whenAnAnimationIsAwaited,
-    whenStepHasTimeout,
-    givenTheData
-  ],
-)
+    FlutterTestConfiguration.DEFAULT([
+        thenIExpectTheTodos,
+        whenAnAnimationIsAwaited,
+        whenStepHasTimeout,
+        givenTheData,
+      ])
       // ..tagExpression = '@debug'
-      ..hooks = [
-        ResetAppHook(),
-      ]
+      ..hooks = [ResetAppHook()]
       ..reporters = [
         StdoutReporter(MessageLevel.error)
           ..setWriteLineFn(print)
@@ -35,9 +31,7 @@ FlutterTestConfiguration gherkinTestConfiguration =
         TestRunSummaryReporter()
           ..setWriteLineFn(print)
           ..setWriteFn(print),
-        JsonReporter(
-          writeReport: (_, __) => Future<void>.value(),
-        ),
+        JsonReporter(writeReport: (_, __) => Future<void>.value()),
       ]
       ..createWorld = (config) => Future.value(CustomWorld());
 
@@ -45,8 +39,9 @@ Future<void> Function(World) appInitializationFn = (World world) async {
   // ensure a new injector instance is created each time
   final injector = Injector(DateTime.now().microsecondsSinceEpoch.toString());
   final externalApplicationManager = ExternalApplicationManager(injector);
-  (world as CustomWorld)
-      .setExternalApplicationManager(externalApplicationManager);
+  (world as CustomWorld).setExternalApplicationManager(
+    externalApplicationManager,
+  );
 
   runApp(
     TodoApp(

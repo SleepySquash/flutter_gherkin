@@ -22,8 +22,10 @@ final thenIExpectTheTodos = then1<GherkinTable, FlutterWorld>(
         FindType.text,
       );
       // find the todo by the expected text
-      final finder = await context.world.appDriver
-          .findByDescendant(listTileFinder, listTileTextFinder);
+      final finder = await context.world.appDriver.findByDescendant(
+        listTileFinder,
+        listTileTextFinder,
+      );
 
       final text = await context.world.appDriver.getText(finder);
 

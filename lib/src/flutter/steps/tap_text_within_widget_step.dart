@@ -11,7 +11,8 @@ import 'package:gherkin/gherkin.dart';
 StepDefinitionGeneric TapTextWithinWidgetStep() {
   return given2<String, String, FlutterWorld>(
     RegExp(
-        r'I tap the (?:button|element|label|field|text|widget) that contains the text {string} within the {string}'),
+      r'I tap the (?:button|element|label|field|text|widget) that contains the text {string} within the {string}',
+    ),
     (text, ancestorKey, context) async {
       final timeout =
           context.configuration.timeout ?? const Duration(seconds: 20);
@@ -37,10 +38,7 @@ StepDefinitionGeneric TapTextWithinWidgetStep() {
         );
       }
 
-      await context.world.appDriver.tap(
-        finder,
-        timeout: timeout,
-      );
+      await context.world.appDriver.tap(finder, timeout: timeout);
       await context.world.appDriver.waitForAppToSettle();
     },
   );

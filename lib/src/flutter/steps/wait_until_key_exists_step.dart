@@ -14,19 +14,17 @@ StepDefinitionGeneric WaitUntilKeyExistsStep() {
   return then2<String, Existence, FlutterWorld>(
     'I wait until the {string} is {existence}',
     (keyString, existence, context) async {
-      await context.world.appDriver.waitUntil(
-        () async {
-          await context.world.appDriver.waitForAppToSettle();
+      await context.world.appDriver.waitUntil(() async {
+        await context.world.appDriver.waitForAppToSettle();
 
-          return existence == Existence.absent
-              ? context.world.appDriver.isAbsent(
-                  context.world.appDriver.findBy(keyString, FindType.key),
-                )
-              : context.world.appDriver.isPresent(
-                  context.world.appDriver.findBy(keyString, FindType.key),
-                );
-        },
-      );
+        return existence == Existence.absent
+            ? context.world.appDriver.isAbsent(
+                context.world.appDriver.findBy(keyString, FindType.key),
+              )
+            : context.world.appDriver.isPresent(
+                context.world.appDriver.findBy(keyString, FindType.key),
+              );
+      });
     },
   );
 }

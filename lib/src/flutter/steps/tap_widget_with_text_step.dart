@@ -12,7 +12,8 @@ import 'package:gherkin/gherkin.dart';
 StepDefinitionGeneric TapWidgetWithTextStep() {
   return then1<String, FlutterWorld>(
     RegExp(
-        r'I tap the (?:button|element|label|field|text|widget) that contains the text {string}$'),
+      r'I tap the (?:button|element|label|field|text|widget) that contains the text {string}$',
+    ),
     (input1, context) async {
       final finder = context.world.appDriver.findBy(input1, FindType.text);
       await context.world.appDriver.scrollIntoView(finder);

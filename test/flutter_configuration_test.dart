@@ -36,12 +36,16 @@ void main() {
         config.prepare();
         expect(config.stepDefinitions, isNotNull);
         expect(config.stepDefinitions!.length, 24);
-        expect(config.stepDefinitions!.elementAt(0),
-            (x) => x is MockStepDefinition);
+        expect(
+          config.stepDefinitions!.elementAt(0),
+          (x) => x is MockStepDefinition,
+        );
         expect(config.customStepParameterDefinitions, isNotNull);
         expect(config.customStepParameterDefinitions!.length, 3);
-        expect(config.customStepParameterDefinitions!.elementAt(0),
-            (x) => x is MockParameter);
+        expect(
+          config.customStepParameterDefinitions!.elementAt(0),
+          (x) => x is MockParameter,
+        );
       });
     });
   });

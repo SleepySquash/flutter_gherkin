@@ -6,20 +6,13 @@ import 'repositories/todo_repository.dart';
 
 class ModuleContainer {
   Injector initialise(Injector injector) {
-    injector.map<TodoRepository>(
-      (i) => TodoRepository(),
-      isSingleton: true,
-    );
+    injector.map<TodoRepository>((i) => TodoRepository(), isSingleton: true);
 
-    injector.map<TodoBloc>(
-      (i) => TodoBloc(i.get<TodoRepository>()),
-    );
+    injector.map<TodoBloc>((i) => TodoBloc(i.get<TodoRepository>()));
 
     // Views
     injector.map<HomeView>(
-      (i) => HomeView(
-        blocFactory: () => i.get<TodoBloc>(),
-      ),
+      (i) => HomeView(blocFactory: () => i.get<TodoBloc>()),
     );
 
     return injector;

@@ -96,7 +96,8 @@ class WidgetTesterAppDriverAdapter
     }
 
     throw Exception(
-        'Unable to get text from unknown type `${instance.runtimeType}`');
+      'Unable to get text from unknown type `${instance.runtimeType}`',
+    );
   }
 
   @override
@@ -105,13 +106,8 @@ class WidgetTesterAppDriverAdapter
     String text, {
     Duration? timeout = const Duration(seconds: 30),
   }) async {
-    await nativeDriver.enterText(
-      finder,
-      text,
-    );
-    await waitForAppToSettle(
-      timeout: timeout,
-    );
+    await nativeDriver.enterText(finder, text);
+    await waitForAppToSettle(timeout: timeout);
   }
 
   @override
@@ -120,9 +116,7 @@ class WidgetTesterAppDriverAdapter
     Duration? timeout = const Duration(seconds: 30),
   }) async {
     await nativeDriver.tap(finder);
-    await waitForAppToSettle(
-      timeout: timeout,
-    );
+    await waitForAppToSettle(timeout: timeout);
   }
 
   @override
@@ -162,10 +156,7 @@ class WidgetTesterAppDriverAdapter
   }
 
   @override
-  Finder findBy(
-    dynamic data,
-    FindType type,
-  ) {
+  Finder findBy(dynamic data, FindType type) {
     switch (type) {
       case FindType.key:
         return find.byKey(data is Key ? data : Key(data));
@@ -185,11 +176,7 @@ class WidgetTesterAppDriverAdapter
     bool matchRoot = false,
     bool firstMatchOnly = false,
   }) {
-    return find.ancestor(
-      of: of,
-      matching: matching,
-      matchRoot: matchRoot,
-    );
+    return find.ancestor(of: of, matching: matching, matchRoot: matchRoot);
   }
 
   @override
@@ -199,11 +186,7 @@ class WidgetTesterAppDriverAdapter
     bool matchRoot = false,
     bool firstMatchOnly = false,
   }) {
-    return find.descendant(
-      of: of,
-      matching: matching,
-      matchRoot: matchRoot,
-    );
+    return find.descendant(of: of, matching: matching, matchRoot: matchRoot);
   }
 
   @override

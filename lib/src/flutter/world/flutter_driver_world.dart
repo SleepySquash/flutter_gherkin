@@ -4,8 +4,9 @@ import 'package:flutter_gherkin/flutter_gherkin_with_driver.dart';
 import '../runners/flutter_run_process_handler.dart';
 
 /// Driver version of the FlutterWorld with a typed driver
-class FlutterDriverWorld extends FlutterTypedAdapterWorld<FlutterDriver,
-    SerializableFinder, dynamic> {
+class FlutterDriverWorld
+    extends
+        FlutterTypedAdapterWorld<FlutterDriver, SerializableFinder, dynamic> {
   FlutterRunProcessHandler? _flutterRunProcessHandler;
 
   void setFlutterDriver(FlutterDriver flutterDriver) {
@@ -23,9 +24,7 @@ class FlutterDriverWorld extends FlutterTypedAdapterWorld<FlutterDriver,
     Duration? timeout = const Duration(seconds: 60),
   }) async {
     await _closeDriver(timeout: timeout);
-    final result = await _flutterRunProcessHandler?.restart(
-      timeout: timeout,
-    );
+    final result = await _flutterRunProcessHandler?.restart(timeout: timeout);
 
     final driver = await FlutterDriver.connect(
       dartVmServiceUrl: _flutterRunProcessHandler!.currentObservatoryUri,
@@ -49,12 +48,10 @@ class FlutterDriverWorld extends FlutterTypedAdapterWorld<FlutterDriver,
   }) async {
     // ignore: unnecessary_null_comparison
     if (rawAppDriver != null) {
-      await rawAppDriver.close().catchError(
-        (e, st) {
-          // Avoid an unhandled error
-          return null;
-        },
-      );
+      await rawAppDriver.close().catchError((e, st) {
+        // Avoid an unhandled error
+        return null;
+      });
     }
   }
 }

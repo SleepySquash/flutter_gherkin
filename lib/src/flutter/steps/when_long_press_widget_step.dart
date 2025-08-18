@@ -19,7 +19,8 @@ import 'package:gherkin/gherkin.dart';
 StepDefinitionGeneric WhenLongPressWidget() {
   return when1<String, FlutterWorld>(
     RegExp(
-        r'I long press the {string} (?:button|element|label|icon|field|text|widget)$'),
+      r'I long press the {string} (?:button|element|label|icon|field|text|widget)$',
+    ),
     (key, context) async {
       final finder = context.world.appDriver.findBy(key, FindType.key);
 
@@ -34,13 +35,12 @@ StepDefinitionGeneric WhenLongPressWidget() {
 StepDefinitionGeneric WhenLongPressWidgetWithoutScroll() {
   return when1<String, FlutterWorld>(
     RegExp(
-        r'I long press the {string} (?:button|element|label|icon|field|text|widget) without scrolling it into view$'),
+      r'I long press the {string} (?:button|element|label|icon|field|text|widget) without scrolling it into view$',
+    ),
     (key, context) async {
       final finder = context.world.appDriver.findBy(key, FindType.key);
 
-      await context.world.appDriver.longPress(
-        finder,
-      );
+      await context.world.appDriver.longPress(finder);
     },
   );
 }
@@ -49,13 +49,12 @@ StepDefinitionGeneric WhenLongPressWidgetWithoutScroll() {
 StepDefinitionGeneric WhenLongPressWidgetForDuration() {
   return when2<String, int, FlutterWorld>(
     RegExp(
-        r'I long press the {string} (?:button|element|label|icon|field|text|widget) for {int} milliseconds$'),
+      r'I long press the {string} (?:button|element|label|icon|field|text|widget) for {int} milliseconds$',
+    ),
     (key, milliseconds, context) async {
       final finder = context.world.appDriver.findBy(key, FindType.key);
 
-      await context.world.appDriver.scrollIntoView(
-        finder,
-      );
+      await context.world.appDriver.scrollIntoView(finder);
       await context.world.appDriver.longPress(
         finder,
         pressDuration: Duration(milliseconds: milliseconds),

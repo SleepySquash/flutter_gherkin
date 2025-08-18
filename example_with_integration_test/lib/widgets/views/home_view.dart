@@ -10,10 +10,7 @@ import '../view_utils_mixin.dart';
 class HomeView extends StatefulWidget {
   final TodoBloc Function() blocFactory;
 
-  const HomeView({
-    required this.blocFactory,
-    Key? key,
-  }) : super(key: key);
+  const HomeView({required this.blocFactory, Key? key}) : super(key: key);
 
   @override
   _HomeViewState createState() => _HomeViewState(blocFactory());
@@ -27,11 +24,7 @@ class _HomeViewState extends State<HomeView> with ViewUtilsMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Todo List',
-        ),
-      ),
+      appBar: AppBar(title: Text('Todo List')),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -39,9 +32,7 @@ class _HomeViewState extends State<HomeView> with ViewUtilsMixin {
               SizedBox(
                 height: 100,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: AddTodoComponent(
                     todo: bloc.newModel,
                     onAdded: (todo) {
@@ -50,9 +41,7 @@ class _HomeViewState extends State<HomeView> with ViewUtilsMixin {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 16,
-              ),
+              SizedBox(height: 16),
               StreamBuilder<Iterable<Todo>>(
                 stream: bloc.todos,
                 builder: (_, snapshot) {
@@ -62,11 +51,7 @@ class _HomeViewState extends State<HomeView> with ViewUtilsMixin {
                       return Center(
                         child: Column(
                           children: [
-                            Icon(
-                              Icons.list,
-                              size: 64,
-                              color: Colors.black26,
-                            ),
+                            Icon(Icons.list, size: 64, color: Colors.black26),
                             Padding(
                               padding: const EdgeInsets.all(16),
                               // child: Text(
@@ -94,9 +79,7 @@ class _HomeViewState extends State<HomeView> with ViewUtilsMixin {
                                         width: 200,
                                         height: 200,
                                         child: Center(
-                                          child: Text(
-                                            'Page ${index + 1}',
-                                          ),
+                                          child: Text('Page ${index + 1}'),
                                         ),
                                       ),
                                     );
@@ -123,14 +106,8 @@ class _HomeViewState extends State<HomeView> with ViewUtilsMixin {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(
-                                    Icons.delete,
-                                    color: Colors.white,
-                                  ),
-                                  Icon(
-                                    Icons.delete,
-                                    color: Colors.white,
-                                  ),
+                                  Icon(Icons.delete, color: Colors.white),
+                                  Icon(Icons.delete, color: Colors.white),
                                 ],
                               ),
                             ),
@@ -140,9 +117,7 @@ class _HomeViewState extends State<HomeView> with ViewUtilsMixin {
                                 bloc.remove(todo),
                                 onDone: () {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('Todo deleted'),
-                                    ),
+                                    SnackBar(content: Text('Todo deleted')),
                                   );
                                 },
                               );
@@ -150,14 +125,12 @@ class _HomeViewState extends State<HomeView> with ViewUtilsMixin {
                             child: ListTile(
                               title: Text(
                                 todo.action!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
+                                style: Theme.of(context).textTheme.bodyMedium!
                                     .copyWith(
                                       decoration:
                                           todo.status == TodoStatus.complete
-                                              ? TextDecoration.lineThrough
-                                              : null,
+                                          ? TextDecoration.lineThrough
+                                          : null,
                                     ),
                               ),
                             ),
@@ -166,9 +139,7 @@ class _HomeViewState extends State<HomeView> with ViewUtilsMixin {
                       );
                     }
                   } else {
-                    return Center(
-                      child: Text('Loading...'),
-                    );
+                    return Center(child: Text('Loading...'));
                   }
                 },
               ),

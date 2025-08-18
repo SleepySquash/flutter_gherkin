@@ -34,12 +34,10 @@ class FlutterDriverAppDriverAdapter
 
   @override
   void dispose() {
-    nativeDriver.close().catchError(
-      (e, st) {
-        // Avoid an unhandled error
-        return null;
-      },
-    );
+    nativeDriver.close().catchError((e, st) {
+      // Avoid an unhandled error
+      return null;
+    });
   }
 
   @override
@@ -53,10 +51,7 @@ class FlutterDriverAppDriverAdapter
     Duration? timeout = const Duration(seconds: 1),
   }) async {
     try {
-      await nativeDriver.waitFor(
-        finder,
-        timeout: timeout,
-      );
+      await nativeDriver.waitFor(finder, timeout: timeout);
       return true;
     } catch (_) {
       return false;
@@ -69,10 +64,7 @@ class FlutterDriverAppDriverAdapter
     Duration? timeout = const Duration(seconds: 1),
   }) async {
     try {
-      await nativeDriver.waitForAbsent(
-        finder,
-        timeout: timeout,
-      );
+      await nativeDriver.waitForAbsent(finder, timeout: timeout);
       return true;
     } catch (_) {
       return false;
@@ -86,10 +78,7 @@ class FlutterDriverAppDriverAdapter
   }) async {
     await waitForAppToSettle(timeout: timeout);
 
-    return await nativeDriver.getText(
-      finder,
-      timeout: timeout,
-    );
+    return await nativeDriver.getText(finder, timeout: timeout);
   }
 
   @override
@@ -98,14 +87,8 @@ class FlutterDriverAppDriverAdapter
     String text, {
     Duration? timeout = const Duration(seconds: 30),
   }) async {
-    await tap(
-      finder,
-      timeout: timeout,
-    );
-    await nativeDriver.enterText(
-      text,
-      timeout: timeout,
-    );
+    await tap(finder, timeout: timeout);
+    await nativeDriver.enterText(text, timeout: timeout);
   }
 
   @override
@@ -152,10 +135,7 @@ class FlutterDriverAppDriverAdapter
   }
 
   @override
-  SerializableFinder findBy(
-    dynamic data,
-    FindType type,
-  ) {
+  SerializableFinder findBy(dynamic data, FindType type) {
     switch (type) {
       case FindType.key:
         return find.byValueKey(data.toString());
@@ -220,10 +200,7 @@ class FlutterDriverAppDriverAdapter
     SerializableFinder finder, {
     Duration? timeout = const Duration(seconds: 30),
   }) async {
-    await nativeDriver.scrollIntoView(
-      finder,
-      timeout: timeout,
-    );
+    await nativeDriver.scrollIntoView(finder, timeout: timeout);
   }
 
   @override

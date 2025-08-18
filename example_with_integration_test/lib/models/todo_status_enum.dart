@@ -1,4 +1,1 @@
-enum TodoStatus {
-  pending,
-  complete,
-}
+enum TodoStatus { pending, complete }

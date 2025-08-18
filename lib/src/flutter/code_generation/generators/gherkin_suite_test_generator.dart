@@ -89,12 +89,11 @@ void executeTestSuite(
     }
 
     return TEMPLATE
-        .replaceAll('{{feature_functions}}',
-            featureExecutionFunctionsBuilder.toString())
         .replaceAll(
-          '{{features_to_execute}}',
-          featuresToExecute.toString(),
-        );
+          '{{feature_functions}}',
+          featureExecutionFunctionsBuilder.toString(),
+        )
+        .replaceAll('{{features_to_execute}}', featuresToExecute.toString());
   }
 }
 
@@ -171,12 +170,7 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     Reporter reporter,
   ) async {
     _id = id;
-    await visit(
-      featureFileContents,
-      path,
-      languageService,
-      reporter,
-    );
+    await visit(featureFileContents, path, languageService, reporter);
 
     _flushScenario();
     _flushFeature();
@@ -258,11 +252,7 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     Iterable<String> multiLineStrings,
     GherkinTable? table,
   ) async {
-    var code = _replaceVariable(
-      STEP_TEMPLATE,
-      'step_name',
-      _escapeText(name),
-    );
+    var code = _replaceVariable(STEP_TEMPLATE, 'step_name', _escapeText(name));
     code = _replaceVariable(
       code,
       'step_multi_line_strings',

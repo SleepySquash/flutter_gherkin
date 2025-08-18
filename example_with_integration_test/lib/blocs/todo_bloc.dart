@@ -18,38 +18,30 @@ class TodoBloc {
     _todos = _dataRefresher
         .switchMap((value) => _repository.all())
         .map(
-          (items) => items.toList(
-            growable: false,
-          )..sort(
-              (a, b) => b.created.compareTo(a.created),
-            ),
+          (items) =>
+              items.toList(growable: false)
+                ..sort((a, b) => b.created.compareTo(a.created)),
         )
         .shareReplay(maxSize: 1);
   }
 
   Stream<void> add(Todo model) {
-    return _repository.add(model).doOnData(
-      (_) {
-        _newModel.add(_createNewModel());
-        _updateTodoItems();
-      },
-    );
+    return _repository.add(model).doOnData((_) {
+      _newModel.add(_createNewModel());
+      _updateTodoItems();
+    });
   }
 
   Stream<void> remove(Todo model) {
-    return _repository.delete(model).doOnData(
-      (_) {
-        _updateTodoItems();
-      },
-    );
+    return _repository.delete(model).doOnData((_) {
+      _updateTodoItems();
+    });
   }
 
   Stream<void> update(Todo model) {
-    return _repository.update(model).doOnData(
-      (_) {
-        _updateTodoItems();
-      },
-    );
+    return _repository.update(model).doOnData((_) {
+      _updateTodoItems();
+    });
   }
 
   void dispose() {

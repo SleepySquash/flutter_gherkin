@@ -1,17 +1,8 @@
 import 'dart:async';
 
-enum FindType {
-  key,
-  text,
-  tooltip,
-  type,
-}
+enum FindType { key, text, tooltip, type }
 
-enum ExpectedWidgetResultType {
-  first,
-  last,
-  list,
-}
+enum ExpectedWidgetResultType { first, last, list }
 
 abstract class AppDriverAdapter<TNativeAdapter, TFinderType, TWidgetBaseType> {
   TNativeAdapter _driver;
@@ -27,10 +18,7 @@ abstract class AppDriverAdapter<TNativeAdapter, TFinderType, TWidgetBaseType> {
   /// Returns the correct finder type instance
   /// `data` can be `String`, `Key` or a `Type`
   /// `findType` denotes the type of finder returned
-  TFinderType findBy(
-    dynamic data,
-    FindType findType,
-  );
+  TFinderType findBy(dynamic data, FindType findType);
 
   TFinderType findByAncestor(
     TFinderType of,
@@ -125,26 +113,22 @@ abstract class AppDriverAdapter<TNativeAdapter, TFinderType, TWidgetBaseType> {
     Duration? timeout = const Duration(seconds: 10),
     Duration? pollInterval = const Duration(milliseconds: 500),
   }) async {
-    return Future.microtask(
-      () async {
-        final completer = Completer<void>();
-        var maxAttempts =
-            (timeout!.inMilliseconds / pollInterval!.inMilliseconds).round();
-        var attempts = 0;
+    return Future.microtask(() async {
+      final completer = Completer<void>();
+      var maxAttempts = (timeout!.inMilliseconds / pollInterval!.inMilliseconds)
+          .round();
+      var attempts = 0;
 
-        while (attempts < maxAttempts) {
-          final result = await condition();
-          if (result) {
-            completer.complete();
-            break;
-          } else {
-            await Future.delayed(pollInterval);
-          }
+      while (attempts < maxAttempts) {
+        final result = await condition();
+        if (result) {
+          completer.complete();
+          break;
+        } else {
+          await Future.delayed(pollInterval);
         }
-      },
-    ).timeout(
-      timeout!,
-    );
+      }
+    }).timeout(timeout!);
   }
 
   void dispose() {}
