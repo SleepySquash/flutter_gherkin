@@ -16,11 +16,11 @@ dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  analyzer: '>=7.4.0 <9.0.0'
+  analyzer: '>=7.4.0 <10.0.0'
   collection: ^1.15.0
   gherkin: ^2.0.8
-  source_gen: ^3.1.0
-  build: ^3.0.2
+  source_gen: ^4.1.1
+  build: ^4.0.3
   glob: ^2.0.2
   # gherkin:
     # path: ../dart_gherkin

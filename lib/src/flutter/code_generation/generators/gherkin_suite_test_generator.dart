@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:analyzer/dart/element/element2.dart';
-import 'package:build/src/builder/build_step.dart';
+import 'package:analyzer/dart/element/element.dart';
+import 'package:build/build.dart';
 import 'package:flutter_gherkin/src/flutter/code_generation/annotations/gherkin_full_test_suite_annotation.dart';
 import 'package:gherkin/gherkin.dart';
 import 'package:glob/glob.dart';
@@ -39,7 +39,7 @@ void executeTestSuite(
 
   @override
   Future<String> generateForAnnotatedElement(
-    Element2 element,
+    Element element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) async {
